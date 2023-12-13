@@ -1,0 +1,13 @@
+[workspace]
+members = [
+    "app1",
+    "app2",
+    "utils"
+]
+
+
+[workspace.dependencies]
+utils = {path = "utils"}
+tokio = { version = "1.28.2", features = ["full"]}
+
+

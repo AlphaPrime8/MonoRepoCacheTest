@@ -1,0 +1,35 @@
+
+# just install cargo chef
+FROM rust:1.70.0 AS ssr_chef
+RUN cargo install cargo-chef
+WORKDIR /app
+
+# copy in source files, cd into target create and prepare recipe
+FROM ssr_chef AS wss_ssr_planner
+
+COPY . .
+#COPY backend/ backend/
+#COPY database/ database/
+#COPY programs/ programs/
+#COPY protocols/ protocols/
+#COPY Cargo.toml Cargo.toml
+#COPY Cargo.lock Cargo.lock
+
+RUN cargo chef prepare --recipe-path recipe.json
+
+FROM ssr_chef as ssr_builder
+COPY --from=wss_ssr_planner /app/recipe.json recipe.json
+RUN cargo chef cook --recipe-path recipe.json
+COPY . .
+RUN cargo build  --bin ssr
+
+FROM  gcr.io/distroless/cc-debian11:debug as ssr_runtime
+WORKDIR /app
+COPY --from=ssr_builder /app/backend/build/ /app/backend/build/
+COPY --from=ssr_builder /app/backend/html_templates/ /app/backend/html_templates/
+COPY --from=ssr_builder /app/target/debug/ssr /app/runner
+EXPOSE 80
+EXPOSE 443
+ENTRYPOINT ["sh"]
+CMD ["/app/runner"]
+# add the cmd to docker
