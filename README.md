@@ -1,5 +1,11 @@
-# Testing docker-chef 
+# Cargo Chef for Monorepos
 
+This is a proof of concept repo for efficient use of docker caching layers in a rust monorepo.
+Existing examples, and the documentation for cargo-chef does not apply intuitively to monorepos (at least for me lol).
+
+Credit to LukeMathWalker for his work, please star his repo: https://github.com/LukeMathWalker/cargo-chef
+
+## IGNORE ALL BELOW, its copy pasta'd and will be updated shortly
 ## NOTES
 - must add: `/app/chef_test` to start command 
 
