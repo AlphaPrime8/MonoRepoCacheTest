@@ -5,6 +5,21 @@ Existing examples, and the documentation for cargo-chef does not apply intuitive
 
 Credit to LukeMathWalker for his work, please star his repo: https://github.com/LukeMathWalker/cargo-chef
 
+## Build Test Process
+
+### Docker Build Commands
+- `docker build . -f Dockerfile.app1 -t app1:latest`
+- `docker run -it --entrypoint sh app1:latest` -> `./runner`
+
+## TODO
+- Try w/ and w/out docker ignore target...
+
+
+
+
+
+
+
 ## IGNORE ALL BELOW, its copy pasta'd and will be updated shortly
 ## NOTES
 - must add: `/app/chef_test` to start command 
